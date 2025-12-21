@@ -14,9 +14,18 @@ keywords = {
     "Dangerous Command" : ["command=/bin/rm -rf", "command=/bin/dd", "command=/sbin/shutdown", "command=/usr/sbin/reboot"]
     } 
 
-# List of words to ignore(reduce noise).
+#   List of words to ignore(reduce noise).
 ignore_keywords = ["systemd", "cron", "session closed", "session opened for user root by"]
 
+#   Dictionary that maps each label to a highlight color.
+keyword_colors = {
+                "SUDO Attempt Failed": colors.hlyellow,
+                "Failed Login": colors.hlyellow,
+                "SUDO Command Executed": colors.hlblue,
+                "User Change Event": colors.hlcyan,
+                "ROOT SSH Login": colors.hlmagenta,
+                "Dangerous Command": colors.hlred 
+                }
 
 def journalctl_section(keywords, ignore_keywords):
     try:
@@ -55,21 +64,22 @@ def journalctl_section(keywords, ignore_keywords):
                     if pattern.lower() in line.lower(): # If pattern is in line <- stdout do this:
                         count += 1
 
+                        alert_color = keyword_colors.get(alert_label, colors.hlcyan)    #   Match alert_label to a color label.
                         if "command=" in line.lower():  # To extract commands if any executed. 
                             command_start = line.lower().find("command=")    # Find "command=" in line <- stdout.
                             command = line[command_start + 8:].split(";")[0].strip()   # Command = 8 characters, find the word after "command=" until ";"
-                            print(f"{count} [{alert_label}] COMMAND: {command}") # Prints which command executed.
+                            print(alert_color(f"{count} [{alert_label}] COMMAND: {command}")) # Prints which command executed.
                         else:
-                            print(f"{count} [{alert_label}]")   # If no command executed print
+                            print(alert_color(f"{count} [{alert_label}]"))   # If no command executed print
                         
-                        print(f"Full Event: {line}")    # Finally print this:
+                        print(colors.hlwhite(f"Event Info: {line}"))    # Finally print this:
                         print("-" * 100)
                         should_alert = True 
                         break   # Stop looking for patterns
         
                 
     except KeyboardInterrupt:
-        print('\033[96mRealtime monitoring service has been stopped.\033[0m')
+        print(colors.cyan("Realtime monitoring service has been stopped."))
         process.terminate()
     finally:
         process.terminate()
