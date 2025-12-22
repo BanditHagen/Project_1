@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-import subprocess
 import time
 import sys
-import colors
+from . import colors
 
-
-def main():
+def startup():
     # Initial startup messages.
     print("\033c")  # Clears terminal output.
     print(colors.cyan("=" * 39))
@@ -30,7 +28,9 @@ def main():
     print(colors.blue("<<System check completed>>"))
     print(colors.blue("=" * 26))
     time.sleep(2)
+
 ##########################  Menu for various choice output    #########################################
+def display_menu():
     while True:
         print("\033c")  # For each lap terminal output is cleared.
         menu_controller = input(colors.white("\n[Q]-quit\n[I]-information\n[C]-continue\n\n//:"))
@@ -50,12 +50,13 @@ def main():
             print(colors.blue("=" * 32))
             print(colors.blue("<<Monitoring service initiated>>"))
             print(colors.blue("=" * 32))
-            break
+            return True
         else:   # Wrong input displays error message. 
             print(colors.red("<<Input failure>> \nplease chose from menu."))
-            time.sleep(1)
-
+            time.sleep(2)
 
 #   Makes module runnable by itself for testing.
+#   If tesing locally: "from . import colors" has to be changed to "import colors".
 if __name__ == "__main__":
-    main()
+    startup()
+    display_menu()
