@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 import subprocess
-import time
-import sys
-import colors
+from . import colors
 
 # Dictonary, each keyword is an alert label and each label is a list of patterns to look for to generate warnings.
 keywords = {
-    "SUDO Attempt Failed" : ["incorrect password attempt", "not in sudoers", "user not in sudoers"],
-    "Failed Login" : ["failed password for", "sshd.*authentication failure", "failed publickey", "invalid user"],
-    "SUDO Command Executed" : ["pam_unix(sudo:session): session opened for user root"],
-    "User Change Event" : ["useradd", "userdel", "usermod", "password changed for"],
+    "Dangerous Command" : ["rm -rf", "rm -r /", "dd if=", "shutdown", "reboot"],
     "ROOT SSH Login" : ["Accepted password for root", "Accepted publickey for root"],
-    "Dangerous Command" : ["command=/bin/rm -rf", "command=/bin/dd", "command=/sbin/shutdown", "command=/usr/sbin/reboot"]
+    "Failed Login" : ["failed password for", "sshd.*authentication failure", "failed publickey", "invalid user", "authentication failure"],
+    "SUDO Attempt Failed" : ["incorrect password attempt", "not in sudoers", "user not in sudoers"],
+    "User Change Event" : ["useradd", "userdel", "usermod", "password changed for"],
+    "SUDO Command Executed" : ["pam_unix(sudo:session): session opened for user root"]
     } 
 
 #   List of words to ignore(reduce noise).
@@ -27,7 +25,7 @@ keyword_colors = {
                 "Dangerous Command": colors.hlred 
                 }
 
-def journalctl_section(keywords, ignore_keywords):
+def journalctl_function(keywords, ignore_keywords, keyword_colors):
     try:
         process = subprocess.Popen(["journalctl", "-f", "-n", "0"], stdout = subprocess.PIPE, stderr = subprocess.PIPE, text = True)
             # stdout stores the output from "journalctl -f".
@@ -72,18 +70,18 @@ def journalctl_section(keywords, ignore_keywords):
                         else:
                             print(alert_color(f"{count} [{alert_label}]"))   # If no command executed print
                         
-                        print(colors.hlwhite(f"Event Info: {line}"))    # Finally print this:
+                        print(f"Event Info: {line}")    # Finally print this:
                         print("-" * 100)
                         should_alert = True 
                         break   # Stop looking for patterns
-        
-                
+              
     except KeyboardInterrupt:
         print(colors.cyan("Realtime monitoring service has been stopped."))
         process.terminate()
     finally:
         process.terminate()
 
-
-if __name__ == "__main__":  # make it possible to test separately for function.
-    journalctl_section(keywords, ignore_keywords)
+#   To make separate testing of module possible.
+#   If tesing locally: "from . import colors" has to be changed to "import colors".
+if __name__ == "__main__":
+    journalctl_function(keywords, ignore_keywords, keyword_colors)
