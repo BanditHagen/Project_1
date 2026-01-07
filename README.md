@@ -1,4 +1,4 @@
-# Linux Security Monitor
+## Linux Security Monitor
 
 A real-time security monitoring tool for Linux systems. Monitors system logs using journalctl and alerts potential security compromising events.
 
@@ -18,7 +18,7 @@ The program parses system logs and highlights security events with colors, makin
 ### Requirements:
 
 - Linux system with systemd (Ubuntu, Debian, Fedora, Arch, etc.)
-- Python 3.x
+- Python3
 - Root/sudo privileges
 
 ### Installation:
@@ -40,7 +40,7 @@ Start the program with:
 sudo python3 main.py
 ```
 
-You will see a menu with three options:
+Menu display with three options:
 - Q - Quit the program
 - I - Show information about the program
 - C - Start monitoring
@@ -113,8 +113,7 @@ keyword_colors = {
 }
 ```
 
-### What This Project Demonstrates
-
+### Learnings:
 - Python subprocess management
 - Real-time data processing and parsing
 - Pattern matching for security events
@@ -177,3 +176,4 @@ This project is open source and available under the MIT License.
 This tool is for authorized system monitoring only. Always ensure you have permission to monitor any system. Use responsibly and ethically.
 
 Last Updated: January 2026
+
