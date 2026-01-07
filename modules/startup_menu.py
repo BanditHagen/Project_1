@@ -17,7 +17,7 @@ def startup():
     #   System information + check if on right OS.
     print(colors.magenta(f"\nCurrent OS: |{sys.platform}|\n"))    # Print the current operating system(in blue).
     if sys.platform != "linux": # Check if OS is Linux, if not print message and exit.
-        print("<<Script is compatible with Linux systems only>>")
+        print(colors.hlgreen(colors.red("<<Script is compatible with Linux systems only>>")))
         print("=" * 60)
         print(colors.cyan("Realtime monitoring service has been stopped."))
         print("=" * 60)
