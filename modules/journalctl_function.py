@@ -53,7 +53,7 @@ def journalctl_function(keywords, ignore_keywords, keyword_colors):
                     should_ignore = True    
                     break  # if True match is found, exit loop early.
         
-            if should_ignore: 
+            if should_ignore:
                 continue  # Skip to next line if ignore keyword was found.
 
             ########################  Find Keywords part  ########################
