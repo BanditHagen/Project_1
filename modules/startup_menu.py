@@ -10,14 +10,14 @@ def startup():
     print(colors.cyan("<<Booting realtime monitoring servies>>"))
     print(colors.cyan("=" * 39))
     time.sleep(2)
-    print("\033c")  #   flushes the output in terminal
+    print("\033c")  #   clear output in terminal
     time.sleep(1)
     ###############################     Small system Checkup    ######################################
 
     #   System information + check if on right OS.
     print(colors.magenta(f"\nCurrent OS: |{sys.platform}|\n"))    # Print the current operating system(in blue).
     if sys.platform != "linux": # Check if OS is Linux, if not print message and exit.
-        print("<<Script is compatible with Linux systems only>>")
+        print(colors.red("<<Script is compatible with Linux systems only>>"))
         print("=" * 60)
         print(colors.cyan("Realtime monitoring service has been stopped."))
         print("=" * 60)
@@ -67,6 +67,7 @@ def display_menu():
             monitoring all services or activety on your system may require
             more advanced tools.
 
+            For more insight and information, look up "README.md" in project folder.
             -------------------------------------------------------------------------
             For bugs and reports feel free to reach out.
 
