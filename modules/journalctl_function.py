@@ -1,28 +1,32 @@
 #!/usr/bin/env python3
 import subprocess
 from . import colors
-
+import os
 # Dictonary, each keyword is an alert label and each label is a list of patterns to look for to generate warnings.
 keywords = {
-    "Dangerous Command" : ["rm -rf", "rm -r /", "dd if=", "shutdown", "reboot"],
-    "ROOT SSH Login" : ["Accepted password for root", "Accepted publickey for root"],
-    "Failed Login" : ["failed password for", "sshd.*authentication failure", "failed publickey", "invalid user", "authentication failure"],
+    "Dangerous Command" : ["rm -rf", "rm -r ", "dd if=", "shutdown", "reboot", "command= /etc/passwd"],
+    "Failed Login" : ["failed password", "authentication failure", "failed publickey", "invalid user"],
     "SUDO Attempt Failed" : ["incorrect password attempt", "not in sudoers", "user not in sudoers"],
+    "ROOT Shell Access" : ["command=/usr/bin/su", "command=/usr/bin/zsh"],
+    "ROOT SSH Login" : ["Accepted password for root", "Accepted publickey for root"],
     "User Change Event" : ["useradd", "userdel", "usermod", "password changed for"],
-    "SUDO Command Executed" : ["pam_unix(sudo:session): session opened for user root"]
+    "Sensitive File Access" : ["command=/etc/shadow", "cat /etc/shadow", "less /etc/shadow", "vim /etc/shadow",],
+    "SUDO Event" : ["pam_unix(sudo:session): session opened for user root"]
     } 
 
 #   List of words to ignore(reduce noise).
-ignore_keywords = ["systemd", "cron", "session closed", "session opened for user root by"]
+ignore_keywords = ["systemd", "cron", "session closed"]
 
 #   Dictionary that maps each label to a highlight color.
 keyword_colors = {
-                "SUDO Attempt Failed": colors.hlyellow,
+                "Dangerous Command": colors.hlred, 
                 "Failed Login": colors.hlyellow,
-                "SUDO Command Executed": colors.hlblue,
-                "User Change Event": colors.hlcyan,
+                "SUDO Attempt Failed": colors.hlyellow,
+                "ROOT Shell Access": colors.hlred,
                 "ROOT SSH Login": colors.hlmagenta,
-                "Dangerous Command": colors.hlred 
+                "User Change Event": colors.hlcyan,
+                "Sensitive File Access": colors.hlred,
+                "SUDO Event": colors.hlblue
                 }
 
 def journalctl_function(keywords, ignore_keywords, keyword_colors):
@@ -39,7 +43,8 @@ def journalctl_function(keywords, ignore_keywords, keyword_colors):
         # Main loop to process each entry piped out to stdout by journalclt.
         for line in process.stdout:
             line = line.strip() # Removes whitespace before and after.
-
+            #print(f"[debug] {line}")   # Uncomment this for easier keyword matching(prints everything journalctl logs).
+            
             ########################  Ignore Keywords part  ########################
             # Check for matches in ignore keywords list.
             should_ignore = False
@@ -73,8 +78,8 @@ def journalctl_function(keywords, ignore_keywords, keyword_colors):
                         print(f"Event Info: {line}")    # Finally print this:
                         print("-" * 100)
                         should_alert = True 
-                        break   # Stop looking for patterns
-              
+                        #break   # Stop looking for patterns
+                        
     except KeyboardInterrupt:
         print(colors.cyan("Realtime monitoring service has been stopped."))
         process.terminate()
