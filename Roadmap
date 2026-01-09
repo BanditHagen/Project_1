@@ -1,0 +1,68 @@
+# Project Roadmap of future updates.
+
+                  CURRENT VERSION (v1.0)
+                Real-time Security Monitor
+                            |
+                            |
+            +---------------+---------------+
+            |                               |
+            v                               v
+    +----------------+              +------------------+
+    | PHASE 1        |              | PHASE 1          |
+    | File Logging   |              | Config File      |
+    +----------------+              +------------------+
+    | - Save alerts  |              | - Custom rules   |
+    |   to log file  |              | - User settings  |
+    | - Timestamps   |              | - Easy config    |
+    | - Analysis     |              +------------------+
+    +----------------+                      |
+            |                               |
+            +---------------+---------------+
+                            |
+                            v
+                    +------------------+
+                    | PHASE 2          |
+                    | Statistics       |
+                    +------------------+
+                    | - Alert count    |
+                    | - Event types    |
+                    | - Reports        |
+                    | - Graphs         |
+                    +------------------+
+                            |
+            +---------------+---------------+
+            |                               |
+            v                               v
+    +------------------+            +------------------+
+    | PHASE 3          |            | PHASE 3          |
+    | Auditd Support   |            | Notifications    |
+    +------------------+            +------------------+
+    | - Monitor auditd |            | - Email alerts   |
+    | - Custom rules   |            | - SMS alerts     |
+    | - Deep events    |            | - Critical only  |
+    +------------------+            +------------------+
+            |                               |
+            +---------------+---------------+
+                            |
+                            v
+                    +------------------+
+                    | PHASE 4          |
+                    | Web Dashboard    |
+                    +------------------+
+                    | - Remote access  |
+                    | - Live view      |
+                    | - Mobile friendly|
+                    +------------------+
+                            |
+                            v
+                    +------------------+
+                    | PHASE 5          |
+                    | SIEM Integration |
+                    +------------------+
+                    | - Export logs    |
+                    | - API support    |
+                    | - Enterprise     |
+                    +------------------+
+                            |
+                            v
+                    FUTURE VERSION (v2.0)
