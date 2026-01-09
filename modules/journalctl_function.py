@@ -4,18 +4,18 @@ from . import colors
 import os
 # Dictonary, each keyword is an alert label and each label is a list of patterns to look for to generate warnings.
 keywords = {
-    "Dangerous Command" : ["rm -rf", "rm -r ", "dd if=", "shutdown", "reboot", "command= /etc/passwd"],
+    "Dangerous Command" : ["rm -rf", "rm -r ", "dd if=", "shutdown", "reboot",],
     "Failed Login" : ["failed password", "authentication failure", "failed publickey", "invalid user"],
     "SUDO Attempt Failed" : ["incorrect password attempt", "not in sudoers", "user not in sudoers"],
     "ROOT Shell Access" : ["command=/usr/bin/su", "command=/usr/bin/zsh"],
     "ROOT SSH Login" : ["Accepted password for root", "Accepted publickey for root"],
     "User Change Event" : ["useradd", "userdel", "usermod", "password changed for"],
     "Sensitive File Access" : ["command=/etc/shadow", "cat /etc/shadow", "less /etc/shadow", "vim /etc/shadow",],
-    "SUDO Event" : ["pam_unix(sudo:session): session opened for user root"]
+    "SUDO Event" : ["pam_unix(sudo:session): session opened for user root", "pam_unix(sudo:session): session closed for user root"]
     } 
 
 #   List of words to ignore(reduce noise).
-ignore_keywords = ["systemd", "cron", "session closed"]
+ignore_keywords = ["systemd", "cron"]
 
 #   Dictionary that maps each label to a highlight color.
 keyword_colors = {
