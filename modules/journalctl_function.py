@@ -31,12 +31,13 @@ keyword_colors = {
 
 def journalctl_function(keywords, ignore_keywords, keyword_colors):
     try:
-        process = subprocess.Popen(["journalctl", "-f", "-n", "0"], stdout = subprocess.PIPE, stderr = subprocess.PIPE, text = True)
+        error_log = open("journalctl_error.log", "a")  # Open error log file in append mode.
+        process = subprocess.Popen(["journalctl", "-f", "-n", "0"], stdout = subprocess.PIPE, stderr = error_log, text = True)
             # stdout stores the output from "journalctl -f".
-            # stderr stores any error messages.
+            # stderr stores critical error messages and saves it in variable error_log.
             # "-f" means follow, -> adds new log entries in real-time.
             # "-n 0" means show 0 old lines -> only show NEW log entries from start of program.
-            # text = True makes output to string format instead of binaries.
+            # "text = True" makes output to string format instead of binaries.
         
         count = 0   # Count variable initiated.
 
