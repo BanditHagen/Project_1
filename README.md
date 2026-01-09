@@ -6,13 +6,15 @@ A real-time security monitoring tool for Linux systems. Monitors system logs usi
 
 This program watches your Linux system in real-time and alerts you when:
 
-- Failed login attempts occur
-- Root SSH logins happen
 - Dangerous commands are executed (rm -rf, dd, shutdown, etc.)
-- SUDO commands are used
+- Failed login attempts occur
 - SUDO attempts fail
-- User accounts are modified
-
+- Root Shell Access
+- Root SSH logins happen
+- User Change Event
+- Sensitive File Access
+- SUDO session opens/closes
+  
 The program parses system logs and highlights security events with colors, making it easy to spot potential security issues quickly.
 
 ### Requirements:
@@ -79,19 +81,14 @@ Project_1/
 ### Alert Types:
 
 ** Dangerous Command** - Detects risky commands like rm -rf, dd, shutdown (Red highlight)
-
-** ROOT SSH Login** - Alerts on successful root SSH authentication (Magenta highlight)
-
 ** Failed Login** - Tracks failed password and SSH key attempts (Yellow highlight)
-
+** ROOT SSH Login** - Alerts on successful root SSH authentication (Magenta highlight)
 ** SUDO Attempt Failed** - Monitors unsuccessful privilege escalation (Yellow highlight)
-
-** SUDO Command Executed** - Logs all commands run with SUDO privileges (Blue highlight)
-
+** Root shell Access** - Monitors successful privilege escalation (Red Highlight)
 ** User Change Event** - Detects user account modifications (Cyan highlight)
+** SUDO Event** - Logs all commands run with SUDO privileges (Blue highlight)
 
 ### Customization
-
 You can customize what the program monitors by editing `modules/journalctl_function.py`.
 
 Add new keywords to monitor:
@@ -123,11 +120,11 @@ keyword_colors = {
 
 ### Security Notes:
 
-This tool monitors system logs but does not prevent attacks. It should be used as one part of a complete security strategy alongside other tools like firewalls, fail2ban, and intrusion detection systems.
+This tool monitors system logs but does not prevent attacks. It should be used as one part of a complete security strategy alongside other tools like firewalls, fail2ban, and intrusion detection systems. Program does not cover anything outside the scope of journalctl and will therefore not give alerts once full privilege is reached.
 
 The program requires sudo privileges to read system logs. Only run this on systems you own or have permission to monitor.
 
-### Troubleshooting
+### Troubleshooting:
 
 ** Permission denied error **
 
@@ -155,7 +152,7 @@ Make sure you run the program from the Project_1 directory.
 - Integration with SIEM systems
 - Custom alert rules via configuration file
 - Statistics and reporting features
-- Auditd function along with rules to find specific end more detailed events
+- Auditd function along with rules to find specific events not covered by journalctl
 
 ### Contributing
 
@@ -173,7 +170,8 @@ This project is open source and available under the MIT License.
 
 ### Disclaimer:
 
-This tool is for authorized system monitoring only. Always ensure you have permission to monitor any system. Use responsibly and ethically.
+This tool is for authorized system monitoring only. Always ensure you have permission to monitor any system. Use responsibly and ethically. 
 
 Last Updated: January 2026
+
 
