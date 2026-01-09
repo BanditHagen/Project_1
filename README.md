@@ -81,11 +81,19 @@ Project_1/
 ### Alert Types:
 
 ** Dangerous Command** - Detects risky commands like rm -rf, dd, shutdown (Red highlight)
+
 ** Failed Login** - Tracks failed password and SSH key attempts (Yellow highlight)
-** ROOT SSH Login** - Alerts on successful root SSH authentication (Magenta highlight)
+
 ** SUDO Attempt Failed** - Monitors unsuccessful privilege escalation (Yellow highlight)
+
 ** Root shell Access** - Monitors successful privilege escalation (Red Highlight)
+
+** ROOT SSH Login** - Alerts on successful root SSH authentication (Magenta highlight)
+
 ** User Change Event** - Detects user account modifications (Cyan highlight)
+
+** Sensitive File Access** - Detects if shadowfiles are accessed (Red highlight)
+
 ** SUDO Event** - Logs all commands run with SUDO privileges (Blue highlight)
 
 ### Customization
@@ -173,5 +181,6 @@ This project is open source and available under the MIT License.
 This tool is for authorized system monitoring only. Always ensure you have permission to monitor any system. Use responsibly and ethically. 
 
 Last Updated: January 2026
+
 
 
