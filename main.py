@@ -16,7 +16,7 @@ def main():
             if os.getuid() != 0:
                 print(colors.red("WARNING, sudo privilege required. Rerun with correct credentials."))
                 time.sleep(2)
-                #sys.exit()
+                sys.exit()
             else:
                 pass  # User has sudo privileges, continue.
                 
