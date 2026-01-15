@@ -57,11 +57,7 @@ Press Ctrl+C to stop monitoring.
 Event Info: Jan 07 14:23:15 hostname sshd[12345]: Failed password for invalid user admin from 192.168.1.100
 -------------------------------------------------------------------------------------------------------------------------------
 
-2 [SUDO Command Executed] COMMAND: apt update
-Event Info: Jan 07 14:24:30 hostname sudo: user : TTY=pts/0 ; PWD=/home/user ; USER=root ; COMMAND=/usr/bin/apt update
--------------------------------------------------------------------------------------------------------------------------------
-
-3 [Dangerous Command]
+2 [Dangerous Command]
 Event Info: Jan 07 14:25:10 hostname sudo: user : TTY=pts/0 ; PWD=/home/user ; USER=root ; COMMAND=/bin/rm -rf /tmp/old_files
 -------------------------------------------------------------------------------------------------------------------------------
 ```
@@ -128,7 +124,7 @@ keyword_colors = {
 
 ### Security Notes:
 
-This tool monitors system logs but does not prevent attacks. It should be used as one part of a complete security strategy alongside other tools like firewalls, fail2ban, and intrusion detection systems. Program does not cover anything outside the scope of journalctl and will therefore not give alerts once full privilege is reached.
+This tool monitors system logs but does not prevent attacks. It should be used as one part of a complete security strategy alongside other tools like firewalls, fail2ban, and intrusion detection systems. Program does not cover anything outside the scope of journalctl and will not give consistant alerts once full privilege is reached.
 
 The program requires sudo privileges to read system logs. Only run this on systems you own or have permission to monitor.
 
@@ -181,6 +177,7 @@ This project is open source and available under the MIT License.
 This tool is for authorized system monitoring only. Always ensure you have permission to monitor any system. Use responsibly and ethically. 
 
 Last Updated: January 2026
+
 
 
 
